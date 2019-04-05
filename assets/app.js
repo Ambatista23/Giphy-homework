@@ -6,30 +6,35 @@ var topics = ["soccer", "videogames", "music"]
 
 function ajaxCall(search){
     $.ajax({
-        url: queryURL + apiKey + "&q=" + search + "&limit=10",
+        url: queryURL + apiKey + "&q=" + search + "&limit=10" + "&rating",
         method: "GET"
     }).then(function(giphy){
-        console.log(queryURL + apiKey + "&q=soccer")
-        console.log(giphy.data[0]);
-        for (var i = 0; i < giphy.data.length; i++){
-            var gif = $("<img>").attr("src", giphy.data[i].images.downsized_still.url);
-            $(".gifs").prepend(gif);
+        // console.log(giphy.data[0]);
 
-            var gifDiv = $("<div>");
+        var gifResults = giphy.data;
 
-            var p  = $("<p>").attr("Rating: " + giphy.data[i].rating);
+        for (var i = 0; i < gifResults.length; i++){
 
-            var gifImage = $("<img>");
-            gifImage.attr("src", giphy.data[i].images.downsized_still.url);
+            // create div to hold <img> and <p>
+            var gifForDiv = $("<div>");
 
-            console.log(giphy.data[i].rating);
+            var gif = $("<img>").attr("src", gifResults[i].images.downsized_still.url)
+            gif.attr("data-still",  gifResults[i].images.downsized_still.url)
+            gif.attr("data-animate", gifResults[i].images.downsized.url)
+            gif.attr("data-state", "still")
+            gif.attr("class", "gif")
 
-            var gifRating = giphy.data[i].rating;
-            gifDiv.append(p);
-            gifDiv.append(gifImage);
+            // put the image tag inside gifDiv
+            gifForDiv.append(gif);
+            
+            // create a <p> for rating
+            var rating  = $("<p>").text("Rating: " + gifResults[i].rating);
 
-            $("#gifs").prepend(gifDiv);
-            $("#gifs").text(gifRating);
+            gifForDiv.append(gif);
+
+            $(".gifsDiv").prepend(gifForDiv);
+            
+       
 
 
         }
@@ -58,14 +63,15 @@ $(".buttonDiv").on("click", ".gifButtons", function(){
     ajaxCall($(this).data("name"))
 })
 
-$(".gif").on("click", function(){
+//creating a .on "click to change static to animated gifs 
+$(".gifsDiv").on("click", ".gif", function(){
     var state = $(this).attr("data-state");
 
     if (state === "still") {
         
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
-        console.log(this);
+        console.log();
     } else {
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
