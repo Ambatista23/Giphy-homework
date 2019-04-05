@@ -30,7 +30,7 @@ function ajaxCall(search){
             // create a <p> for rating
             var rating  = $("<p>").text("Rating: " + gifResults[i].rating);
 
-            gifForDiv.append(gif);
+            gifForDiv.append(rating);
 
             $(".gifsDiv").prepend(gifForDiv);
             
