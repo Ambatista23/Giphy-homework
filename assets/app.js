@@ -2,7 +2,7 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?";
 var apiKey = "&api_key=1YGny3z7BKEKS0AGwmXVtf3GlZELlMy3";
 var userSearch;
 
-var topics = ["soccer", "videogames", "music"]
+var topics = ["Soccer", "Videogames", "Music", "Art", "Photography", "Innovation", "Florida State University"]
 
 function ajaxCall(search){
     $.ajax({
@@ -82,8 +82,5 @@ $(".gifsDiv").on("click", ".gif", function(){
         makeButton(topics[i])
     };
 
-// What I am missing so far:
-// 1. add rating to each gif presented
-// 2. make gifs appear static, click to make dynamic, re-click to make static
-// 3. add a favorites
+
 
