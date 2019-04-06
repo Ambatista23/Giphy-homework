@@ -78,6 +78,9 @@ $(".gifsDiv").on("click", ".gif", function(){
       }
 });
 
+    for (var i = 0; i < topics.length; i++){
+        makeButton(topics[i])
+    };
 
 // What I am missing so far:
 // 1. add rating to each gif presented
